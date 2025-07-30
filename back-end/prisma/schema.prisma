@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:postgres@localhost:5432/chat_app?schema=public"
+}
+
+model User {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  password     String
+  email        String?  @unique
+  profileImage String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  sentMessages      Message[]      @relation("SentMessages")
+  receivedMessages  Message[]      @relation("ReceivedMessages")
+  notifications     Notification[] @relation("UserNotifications")
+  sentNotifications Notification[] @relation("SenderNotifications")
+  userStatuses      UserStatus[]
+
+  @@map("users")
+}
+
+model Message {
+  id       String      @id @default(cuid())
+  content  String
+  type     MessageType @default(TEXT)
+  fileUrl  String?
+  fileName String?
+  fileSize Int?
+  fileType String?
+
+  senderId   String
+  receiverId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sender        User           @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver      User?          @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+  notifications Notification[]
+
+  @@map("messages")
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  FILE
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  senderId  String
+  messageId String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user    User    @relation("UserNotifications", fields: [userId], references: [id], onDelete: Cascade)
+  sender  User    @relation("SenderNotifications", fields: [senderId], references: [id], onDelete: Cascade)
+  message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model UserStatus {
+  id          String   @id @default(cuid())
+  userId      String
+  status      String // 'online', 'offline', 'away'
+  lastSeen    DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  isProcessed Boolean  @default(false) // Track if status update has been sent to clients
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_statuses")
+}
