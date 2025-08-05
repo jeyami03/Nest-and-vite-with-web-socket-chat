@@ -47,7 +47,7 @@ A real-time chat application built with NestJS backend and React frontend, featu
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/Nest-and-vite-with-web-socket-chat.git
+git clone https://github.com/jeyami03/Nest-and-vite-with-web-socket-chat.git
 cd nest-node-chat
 ```
 
@@ -382,7 +382,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you encounter any issues or have questions:
 
-1. Check the [Issues](https://github.com/your-username/Nest-and-vite-with-web-socket-chat/issues) page
+1. Check the [Issues](https://github.com/jeyami03/Nest-and-vite-with-web-socket-chat/issues) page
 2. Create a new issue with detailed information
 3. Contact the development team
 
@@ -390,9 +390,9 @@ If you encounter any issues or have questions:
 
 **Repository Name**: `Nest-and-vite-with-web-socket-chat`
 
-**GitHub URL**: https://github.com/your-username/Nest-and-vite-with-web-socket-chat
+**GitHub URL**: https://github.com/jeyami03/Nest-and-vite-with-web-socket-chat
 
-**Clone URL**: `https://github.com/your-username/Nest-and-vite-with-web-socket-chat.git`
+**Clone URL**: `https://github.com/jeyami03/Nest-and-vite-with-web-socket-chat.git`
 
 ## 🔄 Recent Updates
 
